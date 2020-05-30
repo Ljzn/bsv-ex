@@ -33,7 +33,7 @@ defmodule BSV.Transaction do
   @dust_limit 546
   @fee_per_kb 500
 
-  
+
   @doc """
   Parse the given binary into a transaction. Returns a tuple containing the
   transaction input and the remaining binary data.
@@ -165,7 +165,7 @@ defmodule BSV.Transaction do
   @spec get_fee(__MODULE__.t) :: integer
   def get_fee(%__MODULE__{fee: fee}) when is_integer(fee),
     do: fee
-  
+
   def get_fee(%__MODULE__{fee: fee} = tx) when is_nil(fee),
     do: get_size(tx) * @fee_per_kb / 1000 |> round
 
@@ -390,7 +390,6 @@ defmodule BSV.Transaction do
   defp update_change_output(%__MODULE__{} = tx) do
     tx = tx
     |> remove_change_output
-    |> clear_signatures
     |> add_change_output
 
     change_amount = get_input_sum(tx) - get_output_sum(tx) - get_fee(tx)
